@@ -13,7 +13,7 @@ terraform init
 terraform validate
 
 # apply terraform
-# terraform apply -auto-approve
+ terraform apply -auto-approve
 
 #destroy terraform
-terraform destroy -auto-approve
+# terraform destroy -auto-approve
