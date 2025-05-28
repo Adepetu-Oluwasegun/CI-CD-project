@@ -122,10 +122,12 @@ In your CodeBuild project, specify the following environment variables:
 
 After a successful build, you’ll see the public IP address of the EC2 instance in the Terraform output:
 
-```
-Apply complete! Resources: X added.
-Outputs:
-public_ip = "X.X.X.X"
-```
+---
 
+## Visual Overview of CI/CD Pipeline
+
+![Installing Dependencies](Screenshot%20(5599).png)
+![Code build](Screenshot%20(5601).png)
+![Successful Build Projects](Screenshot%20(5602).png)
+![site is up and running](Screenshot%20(5600).png)
 
