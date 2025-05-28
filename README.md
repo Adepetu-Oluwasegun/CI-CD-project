@@ -45,7 +45,7 @@ cd terraform-codebuild-cicd
 * Create a user with **programmatic access**
 * Attach the following AWS policies:
 
-  * `AdministratorAccess`**
+  * `AdministratorAccess`
   
 
 ### 3. Write Bash Scripts
