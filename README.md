@@ -27,3 +27,105 @@ This project demonstrates how to implement a full CI/CD pipeline using **AWS Cod
 
 ---
 
+
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Create and Clone GitHub Repository
+
+```bash
+git clone https://github.com/your-username/terraform-codebuild-cicd.git
+cd terraform-codebuild-cicd
+````
+
+### 2. Create IAM User
+
+* Create a user with **programmatic access**
+* Attach the following AWS policies:
+
+  * `AdministratorAccess`**
+  
+
+### 3. Write Bash Scripts
+
+Create the following bash scripts:
+
+* `install-techmax.sh`: Installs dependencies or any required packages.
+* `configure-profile.sh`: Configures an AWS named profile using AWS CLI.
+* `apply-terraform.sh`: Executes Terraform commands to deploy infrastructure.
+
+### 4. Create S3 Bucket for Terraform State
+
+```bash
+aws s3 mb s3://your-terraform-state-bucket-name
+```
+
+Update your `backend` block in `ec2.tf` to point to this bucket.
+
+### 5. Write Terraform Scripts
+
+Define the infrastructure in `ec2.tf` file
+
+* Create a VPC
+* Subnet
+* Security Group
+* EC2 instance
+* Output the public IP of the EC2 instance
+
+### 6. Create `buildspec.yml`
+
+Define the build steps in `CICD/buildspec.yml`:
+
+```yaml
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - chmod +x scripts/*.sh
+      - ./scripts/install-techmax.sh
+  pre_build:
+    commands:
+      - ./scripts/configure-profile.sh
+  build:
+    commands:
+      - ./scripts/apply-terraform.sh
+```
+
+### 7. Set Environment Variables in CodeBuild
+
+In your CodeBuild project, specify the following environment variables:
+
+* `AWS_ACCESS_KEY_ID`
+* `AWS_SECRET_ACCESS_KEY`
+* `AWS_REGION`
+* `AWS_PROFILE`
+
+### 8. Create CodeBuild Project
+
+* Source: GitHub (via AWS Connections)
+* Buildspec file: `CICD/buildspec.yml`
+* Enable **“Rebuild every time a code change is pushed to this repository”**
+
+### 9. Set Up Webhook Event Filters
+
+* In CodeBuild, configure webhook triggers for:
+
+  * **Push to main**
+  * **Pull request merges**
+
+---
+
+##  Output
+
+After a successful build, you’ll see the public IP address of the EC2 instance in the Terraform output:
+
+```
+Apply complete! Resources: X added.
+Outputs:
+public_ip = "X.X.X.X"
+```
+
+
